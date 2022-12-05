@@ -1,7 +1,7 @@
-﻿--Bai 1:Viết các hàm:
+﻿--Bai 1: VIẾT HÀM
 --➢ Nhập vào MaNV cho biết tuổi của nhân viên này.
 go
-create function fn_TuoiNV(@MaNV nvarchar(9))
+CREATE FUNCTION fn_TuoiNV(@MaNV nvarchar(9))
 returns int
 as
 begin
@@ -16,7 +16,7 @@ go
 
 --➢ Nhập vào Manv cho biết số lượng đề án nhân viên này đã tham gia
 go
-create function fn_DemDeAnNV(@MaNV varchar(9))
+CREATE FUNCTION fn_DemDeAnNV(@MaNV varchar(9))
 returns int
 as
 	begin
@@ -29,7 +29,7 @@ print 'so Du an nhan vien da lam'+ convert(varchar, dbo.fn_DemDeAnNV('003'))
 go
 --➢ Truyền tham số vào phái nam hoặc nữ, xuất số lượng nhân viên theo phái
 go
-create function fn_DemNV_Phai(@Phai nvarchar(5)=N'%')
+CREATE FUNCTION fn_DemNV_Phai(@Phai nvarchar(5)=N'%')
 returns int
 as 
 	begin
@@ -45,7 +45,7 @@ go
 --họ tên nhân viên (HONV, TENLOT, TENNV) có mức lương trên mức lương trung bình
 --của phòng đó.
 go
-create function fn_Luong_NhanVien_PB(@TenPhongBan nvarchar(20))
+CREATE FUNCTION fn_Luong_NhanVien_PB(@TenPhongBan nvarchar(20))
 returns @tbLuongNV table(fullname nvarchar(50),luong float)
 as 
 	begin
@@ -65,7 +65,7 @@ go
 --➢ Tryền tham số đầu vào là Mã Phòng, cho biết tên phòng ban, họ tên người trưởng phòng
 --và số lượng đề án mà phòng ban đó chủ trì.
 go
-create function fn_SoLuongDeAnTheoPB(@MaPB int)
+CREATE FUNCTION fn_SoLuongDeAnTheoPB(@MaPB int)
 returns @tbListPB table(TenPB nvarchar(20),MaTB nvarchar(10), TenTP nvarchar(50), soluong int)
 as
 begin
@@ -84,7 +84,7 @@ go
 --Tạo các view:
 --➢ Hiển thị thông tin HoNV,TenNV,TenPHG, DiaDiemPhg.
 go
-create view v_DD_PhongBan
+CREATE VIEW v_DD_PhongBan
 as
 select HONV, TENNV, DIADIEM from PHONGBAN
 inner join DIADIEM_PHG on DIADIEM_PHG.MAPHG = PHONGBAN.MAPHG
@@ -94,14 +94,14 @@ go
 
 --➢ Hiển thị thông tin TenNv, Lương, Tuổi.
 go
-create view v_TuoiNV
+CREATE VIEW v_TuoiNV
 as
 select TENNV,LUONG,YEAR(GETDATE())-YEAR(NGSINH) as 'Tuoi' from NHANVIEN
 go
 
 --➢ Hiển thị tên phòng ban và họ tên trưởng phòng của phòng ban có đông nhân viên nhất
 go
-create view v_LuongNV_PB
+CREATE VIEW v_LuongNV_PB
 as
 select top(1) TENPHG,TRPHG,B.HONV+' '+B.TENLOT+' '+B.TENNV as 'TENTP',COUNT(A.MANV) as 'SoLuongNV' from NHANVIEN A 
 inner join PHONGBAN on PHONGBAN.MAPHG = A.PHG
