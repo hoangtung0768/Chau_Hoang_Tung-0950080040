@@ -24,9 +24,9 @@ insert lop values
 ('b','lop b',0),
 ('c','lop c',0)
 insert sinhvien values
-('01','Le Minh','1999-1-1','a'),
-('02','Le Hung','1999-11-1','a'),
-('03','Le Tri','1999-12-12','a')
+('01','Van Toi','2001-10-1','a'),
+('02','Thuy Tien','2001-8-5','a'),
+('03','Van Anh','20001-8-2','a')
 insert monhoc values
 ('PPLT','Phuong phap LT'),
 ('CSDL','Co so du lieu'),
